@@ -19,5 +19,5 @@ def guest_required(f):
             }
             return handler.response.out.write(render_template('error_general.html', context))
         else:
-            return f()
+            return f
     return wrapper
