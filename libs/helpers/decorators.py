@@ -2,10 +2,10 @@ from helpers import get_current_user, render_template
 from google.appengine.ext import webapp
 
 def login_required(f):
-    def wrapper(caller):
+    def wrapper(handler):
         user = get_current_user()
         if user:
-            return f(*args)
+            return f(handler)
         else:
             return f
     return wrapper
@@ -19,5 +19,5 @@ def guest_required(f):
             }
             return handler.response.out.write(render_template('error_general.html', context))
         else:
-            return f
+            return f(handler)
     return wrapper

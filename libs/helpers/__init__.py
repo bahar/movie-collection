@@ -13,3 +13,6 @@ def get_current_user():
     session = get_current_session()
     if session.has_key('user'):
         return session['user']
+
+def update_user(new_user):
+  get_current_session()['user'] = new_user

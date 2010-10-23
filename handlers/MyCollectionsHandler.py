@@ -1,30 +1,27 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
-import os
-from google.appengine.ext.webapp import template
 from gaesessions import get_current_session
-from gaeauth.decorators import login_required
-import gaeauth
-import main
+from helpers import TemplatedRequest, update_user
+from helpers.decorators import login_required
 from models.MovieCollection import MovieCollection
 from google.appengine.ext import db
 
-class MyCollectionsHandler(webapp.RequestHandler):
+class MyCollectionsHandler(webapp.RequestHandler, TemplatedRequest):
     @login_required
     def get(self):
         session = get_current_session()
         user = session.get('user')
         collections = db.get(user.movie_collections)
         templ_vars = { 'user':user,'collections':collections }
-        return self.response.out.write(main.render_template('my_collections.html', templ_vars))
+        return self.render_template('my_collections.html', templ_vars)
 
-class NewCollectionHandler(webapp.RequestHandler):
+class NewCollectionHandler(webapp.RequestHandler, TemplatedRequest):
   @login_required
   def get(self):
     session = get_current_session()
     user = session.get('user')
     templ_vars = { 'user':user }
-    self.response.out.write(main.render_template('add_new_collection.html', templ_vars))
+    return self.render_template('add_new_collection.html', templ_vars)
     
     
   def post(self):
@@ -49,5 +46,5 @@ class NewCollectionHandler(webapp.RequestHandler):
     new_collection.put()
     user.movie_collections.append(new_collection.key())
     user.put()
-    gaeauth.update_user(user)
-    return self.redirect('/mycollections')
+    update_user(user)
+    return self.redirect('/')

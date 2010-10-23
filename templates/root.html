@@ -2,6 +2,15 @@
 {% block content %}
 {% if user %}
 Hello, {{ user.username }} | <a href="/logout">Logout</a><br />
+<a href="/mycollections/add">Add new collection</a><br />
+{% if user.movie_collections %}
+Your movie collections:<br />
+{% for collection in user.movie_collections %}
+sdadsa {{collection}} {{collection.title}}<br />
+{% endfor %}
+{% else %}
+You have no collections!<br />
+{% endif %}
 {% else %}
 Hello stranger.. Sign <a href="/signup">Up</a> <a href="/login">In</a><br />
 {% endif %}
