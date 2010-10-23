@@ -1,0 +1,36 @@
+#center-column {
+    width:974px;
+    margin: auto;
+}
+
+.wrapper {
+    padding:10px;
+}
+.width-expander {
+    width:100%;
+}
+
+.bottomer {
+    width:100%;
+    height:100%;
+}
+#content {
+    min-height:600px;
+}
+.search-results {
+  position:absolute;
+  overflow:auto;
+  height:200px;
+}
+.search-result {
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+#search {
+  width:500px;
+}
+.relative {
+  position:relative;
+}
+

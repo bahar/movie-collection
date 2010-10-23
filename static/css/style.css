@@ -1,0 +1,33 @@
+body {
+    font: normal normal normal 16px/normal 'Lucida Grande', 'Trebuchet MS', Verdana, sans-serif;
+}
+#header {
+    border-bottom:1px solid red;
+    background: white;
+}
+.top-logo {
+    font-size: 3em;
+}
+#content {
+    background: -moz-linear-gradient(top,  white,  #BBD);
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#BBD), to(white));
+}
+#whole-screen {
+    
+}
+html {
+    background: #778;
+}
+.search-results {
+  background: #fff;
+  border:1px solid blue;
+}
+.search-result:hover {
+  background: #ff0;
+}
+#big-results {
+  
+}
+.big-result:hover {
+  background: #12f;
+}

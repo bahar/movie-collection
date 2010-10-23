@@ -1,0 +1,15 @@
+{% extends "main_layout.html" %}
+{% block content %}
+{% if user %}
+  {% if collections %}
+        your movie collections :<br />
+        {% for collection in collections %}
+                <a href="/mycollections/{{ collection.cid }}">{{ collection.title }} : {{ collection.description }}</a><br />
+        {% endfor %}
+  {% else %}
+        You have no collections. <a href="/mycollections/add">Add new</a>
+  {% endif %}
+{% else %}
+  not logged in. <a href="/login">Login</a>
+{% endif %}
+{% endblock %}

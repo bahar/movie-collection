@@ -1,0 +1,8 @@
+{% extends "main_layout.html" %}
+{% block content %}
+Hello!! {% if user %}{{ user.username }}{% endif %}<br />
+<a href="/?method=delete&what=users">delete all users</a><br />
+<a href="/?method=delete&what=collections">delete all collections</a><br />
+<a href="/?method=delete&what=movies">delete all movies</a><br />
+
+{% endblock %}

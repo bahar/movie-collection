@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.1/build/reset/reset-min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/layout.css" />
+    <script type="text/javascript" src="/js/jquery-1.4.2.js"></script>
+    {% block more_head %}{% endblock %}
+  </head>
+<body>
+<div class="bottomer" id="whole-screen">
+  <div id="center-column">
+    <div id="header" class="width expander">
+      <span class="top-logo">My Movie Collection</span>
+    </div>
+    <div class="wrapper" id="content">
+      {% block content %}{% endblock %}
+    </div>
+  </div>
+</div>
+</body>
+</html>

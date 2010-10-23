@@ -1,0 +1,45 @@
+from google.appengine.ext import webapp
+import os
+import main
+from gaesessions import get_current_session
+from models.User import User
+from models.MovieCollection import MovieCollection
+from models.Movie import Movie
+
+class RootHandler(webapp.RequestHandler):
+    def get(self):
+      arg_method = self.request.get('method')
+      session = get_current_session()
+      user = session.get('user')
+      templ_vars = { 'user':user }
+      if not arg_method:
+        return self.response.out.write(main.render_template('root.html', templ_vars))
+      
+      if arg_method == 'delete':
+        arg_what = self.request.get('what')
+        if not arg_what:
+          return self.request.out.write('no what specified.')
+        
+        if arg_what == 'users':
+          all_users = User.all()
+          for user in all_users:
+            user.delete()
+          return self.redirect('/')
+          
+        if arg_what == 'collections':
+          all_colls = MovieCollection.all()
+          for col in all_colls:
+            col.delete()
+          return self.redirect('/')
+        
+        if arg_what == 'movies':
+          movies = Movie.all()
+          for movie in movies:
+            movie.delete()
+          return self.redirect('/')
+        
+        return self.response.out.write(' no valid what')
+      
+      return self.response.out.write(' no valid method')
+            
+

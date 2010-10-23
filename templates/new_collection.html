@@ -1,0 +1,21 @@
+{% extends "main_layout.html" %}
+
+{% block more_head %}
+<script type="text/javascript" src="/js/imdb-hooks.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="relative">
+<select name="source">
+  <option value="imdb">IMdb</option>
+  <option value="other?">Other</option>
+</select>
+<input id="search" type="search" name="title" placeholder="Title" autofocus />
+<div class="search-results">
+</div>
+<br />
+<button id="grab">Grab</button>
+</div>
+<div id="big-results" class="width-expander">
+</div>
+{% endblock %}

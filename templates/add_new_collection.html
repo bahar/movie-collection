@@ -1,0 +1,12 @@
+{% extends "main_layout.html" %}
+
+{% block more_head %}
+{% endblock %}
+
+{% block content %}
+<form action="./add" method="post">
+<input type="text" name="title" placeholder="Collection Title" autofocus />
+<input type="text" name="description" placeholder="Collection Description" />
+<input type="submit" />
+</form>
+{% endblock %}
