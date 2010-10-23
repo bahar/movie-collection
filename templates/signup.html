@@ -2,8 +2,11 @@
 {% block content %}
 <body>
 <form action="/signup" method="post">
-<input type="text" value="username" name="username" />
-<input type="text" value="password" name="password" />
+{% if exists %}
+A user with this name already exists! Pick another one!<br />
+{% endif %}
+<input type="text" name="username" placeholder="username" />
+<input type="password" name="password" placeholder="password" />
 <input type="submit" />
 </form>
 {% endblock %}

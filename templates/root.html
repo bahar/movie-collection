@@ -1,6 +1,12 @@
 {% extends "main_layout.html" %}
 {% block content %}
-Hello!! {% if user %}{{ user.username }}{% endif %}<br />
+{% if user %}
+Hello, {{ user.username }} | <a href="/logout">Logout</a><br />
+{% else %}
+Hello stranger.. Sign <a href="/signup">Up</a> <a href="/login">In</a><br />
+{% endif %}
+<br />
+<br />
 <a href="/?method=delete&what=users">delete all users</a><br />
 <a href="/?method=delete&what=collections">delete all collections</a><br />
 <a href="/?method=delete&what=movies">delete all movies</a><br />

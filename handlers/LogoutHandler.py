@@ -12,6 +12,6 @@ class LogoutHandler(webapp.RequestHandler):
         session = get_current_session()
         if session.has_key('user'):
             del session['user']
-            return self.response.out.write('logged out')
+            return self.redirect("/")
         else:
             return self.response.out.write('was not logged in')

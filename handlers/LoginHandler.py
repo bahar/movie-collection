@@ -6,7 +6,7 @@ from gaeauth import hash_password
 from google.appengine.ext import db
 from models.User import User
 from gaesessions import get_current_session
-import main
+from helpers import render_template
 
 class LoginHandler(webapp.RequestHandler):
     def get(self):
@@ -14,7 +14,7 @@ class LoginHandler(webapp.RequestHandler):
         if session.has_key('user'):
             return self.response.out.write('already logged in')
         else:
-            self.response.out.write(main.render_template('login.html', {}))
+            self.response.out.write(render_template('login.html', {}))
     
     def post(self):
         arg_username = self.request.get('username')
@@ -30,5 +30,5 @@ class LoginHandler(webapp.RequestHandler):
                 return self.response.out.write("already logged")
             else:
                 session['user'] = exist_user[0]
-                return self.redirect("/login")
+                return self.redirect("/")
   

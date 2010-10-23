@@ -1,6 +1,6 @@
 from google.appengine.ext import webapp
 import os
-import main
+from helpers import render_template
 from gaesessions import get_current_session
 from models.User import User
 from models.MovieCollection import MovieCollection
@@ -13,7 +13,7 @@ class RootHandler(webapp.RequestHandler):
       user = session.get('user')
       templ_vars = { 'user':user }
       if not arg_method:
-        return self.response.out.write(main.render_template('root.html', templ_vars))
+        return self.response.out.write(render_template('root.html', templ_vars))
       
       if arg_method == 'delete':
         arg_what = self.request.get('what')

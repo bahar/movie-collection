@@ -1,8 +1,7 @@
 import sys
 if 'libs' not in sys.path:
     sys.path[0:0] = ['lib', 'distlib', 'distlib.zip', 'libs']
-import os
-from jinja2 import Environment, FileSystemLoader, TemplateNotFound
+
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext import webapp
 from handlers.RootHandler import RootHandler
@@ -28,15 +27,10 @@ app = webapp.WSGIApplication(
   ],
   debug=True)
 
-TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), 'templates', '')
-TEMPLATE_ENV = Environment(loader = FileSystemLoader(TEMPLATE_PATH))
 
-def render_template(filename, *args):
-  template = TEMPLATE_ENV.get_template(filename)
-  return template.render(*args)
   
 def get_last_part_of_url(url):
-  return url.
+  return url
 
 def main():
     run_wsgi_app(app)
