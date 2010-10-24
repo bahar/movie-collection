@@ -1,25 +1,35 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 from gaesessions import get_current_session
-from helpers import TemplatedRequest, update_user
+from helpers import TemplatedRequest, update_user_session, url_last_part
 from helpers.decorators import login_required
 from models.MovieCollection import MovieCollection
+from models.Movie import Movie
 from google.appengine.ext import db
 
 class MyCollectionsHandler(webapp.RequestHandler, TemplatedRequest):
     @login_required
-    def get(self):
-        session = get_current_session()
-        user = session.get('user')
-        collections = db.get(user.movie_collections)
-        templ_vars = { 'user':user,'collections':collections }
+    def get(self, user):
+        templ_vars = { 'user':user }
+        url_ending = url_last_part(self.request.url)
+        if (url_ending.isdigit()):
+            collection = MovieCollection.get_by_id(int(url_ending))
+            if collection:
+                movies = Movie.get(collection.movies)
+                assert not None in movies
+                i = 0
+                collection.movies = list()
+                for key in movies:
+                    collection.movies[i] = movies[i]
+                    i = i + 1
+            templ_vars['collection'] = collection
+            return self.render_template('collection.html', templ_vars)
+        
         return self.render_template('my_collections.html', templ_vars)
 
 class NewCollectionHandler(webapp.RequestHandler, TemplatedRequest):
   @login_required
-  def get(self):
-    session = get_current_session()
-    user = session.get('user')
+  def get(self, user):
     templ_vars = { 'user':user }
     return self.render_template('add_new_collection.html', templ_vars)
     
@@ -34,17 +44,9 @@ class NewCollectionHandler(webapp.RequestHandler, TemplatedRequest):
     
     if not arg_descr:
       return self.response.out.write('need to enter descr, can be empty');
-    
-    query = db.GqlQuery("SELECT * FROM MovieCollection ORDER BY cid DESC")
-    result = query.fetch(1)
-    #return self.response.out.write(str(result))
-    if (len(result) == 0):
-      next_cid = 1
-    else:
-      next_cid = result[0].cid + 1
-    new_collection = MovieCollection(cid=next_cid, title=arg_title, description=arg_descr)
-    new_collection.put()
-    user.movie_collections.append(new_collection.key())
+      
+    new_collection = MovieCollection(title=arg_title, description=arg_descr).put()
+    user.movie_collections.append(new_collection)
     user.put()
-    update_user(user)
+    update_user_session(user)
     return self.redirect('/')

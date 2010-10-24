@@ -6,7 +6,7 @@ Hello, {{ user.username }} | <a href="/logout">Logout</a><br />
 {% if user.movie_collections %}
 Your movie collections:<br />
 {% for collection in user.movie_collections %}
-sdadsa {{collection}} {{collection.title}}<br />
+<a href="mycollections/{{collection.id}}">{{collection.title}}</a> : {{collection.description}}<br />
 {% endfor %}
 {% else %}
 You have no collections!<br />

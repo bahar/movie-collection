@@ -1,0 +1,15 @@
+{% extends "main_layout.html" %}
+{% block content %}
+{% if collection %}
+Collection : {{ collection.title }}<br />
+{{ collection.description }}<br />
+{% if collection.movies %}
+Your movies :<br />
+{% for movie in collection.movies %}
+<a href="/movies/{{movie.name}}">{{movie.name}}</a> |
+{% endfor %}
+{% else %}
+You have no movies in this collection...
+{% endif %}
+{% endif %}
+{% endblock %}

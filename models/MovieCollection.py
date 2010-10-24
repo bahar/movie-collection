@@ -1,8 +1,8 @@
 from google.appengine.ext import db
 
 class MovieCollection(db.Model):
-  cid = db.IntegerProperty(required=True)
+  ### ID IS ID ###
   title = db.StringProperty(required=True)
   description = db.StringProperty(required=True)
-  collection = db.ListProperty(db.Key, required=True)
+  movies = db.ListProperty(db.Key, required=True)
 

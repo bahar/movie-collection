@@ -28,10 +28,6 @@ app = webapp.WSGIApplication(
   debug=True)
 
 
-  
-def get_last_part_of_url(url):
-  return url
-
 def main():
     run_wsgi_app(app)
     

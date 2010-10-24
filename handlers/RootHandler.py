@@ -1,6 +1,6 @@
 from google.appengine.ext import webapp
 import os
-from helpers import render_template
+from helpers import render_template, get_current_user, grab_collections
 from gaesessions import get_current_session
 from models.User import User
 from models.MovieCollection import MovieCollection
@@ -9,8 +9,10 @@ from models.Movie import Movie
 class RootHandler(webapp.RequestHandler):
     def get(self):
       arg_method = self.request.get('method')
-      session = get_current_session()
-      user = session.get('user')
+      user = get_current_user()
+      if user:
+          grab_collections(user)
+      
       templ_vars = { 'user':user }
       if not arg_method:
         return self.response.out.write(render_template('root.html', templ_vars))
@@ -38,6 +40,9 @@ class RootHandler(webapp.RequestHandler):
             movie.delete()
           return self.redirect('/')
         
+        if arg_what == 'user_session':
+            get_current_session().terminate()
+            return self.redirect('/')
         return self.response.out.write(' no valid what')
       
       return self.response.out.write(' no valid method')

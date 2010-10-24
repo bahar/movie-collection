@@ -5,7 +5,7 @@ def login_required(f):
     def wrapper(handler):
         user = get_current_user()
         if user:
-            return f(handler)
+            return f(handler, user)
         else:
             return f
     return wrapper
